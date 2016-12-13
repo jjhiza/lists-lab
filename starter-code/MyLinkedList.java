@@ -75,36 +75,56 @@ public class MyLinkedList<T> implements Iterable<T>{
 
 	public void add(int index, T obj){
 		//to-do
+		if  (index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		Node<T> newNode;
+
+		if (index == 0) {
+			newNode = new Node<>(obj, head);
+			head = newNode;
+		} else {
+
+			Node<T> prevNode = getNodeAt(index - 1);
+			newNode = new Node<>(obj, prevNode.getNext());
+			prevNode.setNext(newNode);
+		}
+
+		size++;
+		}
+	}
+
+@Override
+public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return new MyIterator<T>(head);
+		}
+
+private class MyIterator<T> implements Iterator<T> {
+
+	private Node<T> node;
+
+	public MyIterator(Node<T> node) {
+		//to-do
+		this.node = node;
 	}
 
 	@Override
-	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return new MyIterator<T>(head);
+	public boolean hasNext() {
+		//to-do
+		return node.getNext() != null;
 	}
 
-	private class MyIterator<T> implements Iterator<T> {
+	@Override
+	public T next() {
+		//to-do
+		return node.getNext().getData();
+	}
 
-		private Node<T> node;
-
-		public MyIterator(Node<T> node) {
-			//to-do
-		}
-		@Override
-		public boolean hasNext() {
-			//to-do
-		}
-
-		@Override
-		public T next() {
-			//to-do
-		}
-
-		@Override
-		public void remove() {
-			// to-do
-
-		}
-
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
 	}
 }
+
